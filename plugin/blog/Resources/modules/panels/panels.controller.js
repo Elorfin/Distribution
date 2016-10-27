@@ -62,7 +62,7 @@ export default class BlogPanelController {
         this._t('day.sat')
       ],
       today: this._t('today'),
-      locale: window.Claroline.Home.locale,
+      locale: window.Claroline.Home.locale
     }
   }
 

@@ -39,7 +39,7 @@ angular
   .directive('jqueryTree', () => {
     return {
       restrict: 'A',
-      link: (scope, elem, attrs) => {
+      link: (scope, elem) => {
         $(document).ready(function() {
           $(elem).tree()
         })

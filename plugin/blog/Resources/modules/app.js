@@ -28,5 +28,5 @@ angular
 angular.element(document).ready(function () {
   angular.bootstrap(angular.element(document).find('body')[0], ['BlogModule'], {
     strictDi: true
-  });
+  })
 })

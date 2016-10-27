@@ -33,9 +33,6 @@ angular
     return {
       restrict: 'A',
       controller: 'blogPanelCtrl',
-      controllerAs: 'ctrl',
-      link: (scope, elem, attrs) => {
-        let ctrl = scope.ctrl
-      }
+      controllerAs: 'ctrl'
     }
   })

@@ -2,7 +2,7 @@
  * Created by david on 13/10/16.
  */
 import jQuery from 'jquery'
-/*import 'mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js'
+import 'mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js'
 
 (function ($) {
   var banner = $('#blog_banner')
@@ -213,4 +213,4 @@ import jQuery from 'jquery'
   bannerResetButton.click(function () {
     resetBannerForm()
   })
-})(jQuery)*/
+})(jQuery)

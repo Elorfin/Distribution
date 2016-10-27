@@ -10,7 +10,7 @@ angular
   .directive('tagcanvas', () => {
     return {
       restrict: 'A',
-      link: (scope, elem, attrs) => {
+      link: (scope, elem) => {
         $(document).ready(function() {
           $(elem).tagcanvas({
             textColour : '#428BCA',
