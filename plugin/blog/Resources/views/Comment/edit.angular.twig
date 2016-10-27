@@ -1,0 +1,14 @@
+{% extends 'IcapBlogBundle::layout.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block title %}{{ _resource.resourceNode.name }} - {{ "edit_post"|trans({'%postTitle%': post.title}, 'icap_blog') }}{% endblock %}
+
+{% block blog_content %}
+    {% include "IcapBlogBundle:Comment:editForm.html.twig"%}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ hotAsset('dist/claroline-distribution-plugin-blog-comment.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,16 @@
+<div class="panel-heading">
+    <h3 class="panel-title">{{ 'editor'|trans:{}:'icap_blog' }}</h3>
+</div>
+<div class="panel-body">
+    <ul class="list-unstyled list-inline">
+        <li
+            data-ng-repeat="author in ctrl.authors">
+            <a
+                href="{{ path('icap_blog_view_filter', {'blogId': blog.id, 'filter': author.username}) }}"
+                title="{{ author.firstName }} {{ author.lastName }}">
+            {{ author.firstName }} {{ author.lastName }}
+            </a>
+        </li>
+        <li data-ng-if="ctrl.authors.length === 0">{{ 'no_authors'|trans:{}:'icap_blog' }}</li>
+    </ul>
+</div>

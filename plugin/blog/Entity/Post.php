@@ -3,23 +3,28 @@
 namespace Icap\BlogBundle\Entity;
 
 use Claroline\CoreBundle\Entity\User;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Icap\BlogBundle\Utils\StringUtils;
 use Icap\NotificationBundle\Entity\UserPickerContent;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Table(name="icap__blog_post")
  * @ORM\Entity(repositoryClass="Icap\BlogBundle\Repository\PostRepository")
  * @ORM\EntityListeners({"Icap\BlogBundle\Listener\PostListener"})
  * @ORM\HasLifecycleCallbacks()
+ * @ExclusionPolicy("all")
  */
 class Post extends Statusable
 {
     /**
      * @var int
-     *
+     * @Expose
+     * @Groups({"blog_list"})
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -28,14 +33,16 @@ class Post extends Statusable
 
     /**
      * @var string
-     *
+     * @Expose
+     * @Groups({"blog_list"})
      * @ORM\Column(type="string", length=255)
      */
     protected $title;
 
     /**
      * @var string
-     *
+     * @Expose
+     * @Groups({"blog_list"})
      * @ORM\Column(type="text")
      */
     protected $content;
@@ -86,7 +93,8 @@ class Post extends Statusable
 
     /**
      * @var User
-     *
+     * @Expose
+     * @Groups({"blog_list"})
      * @ORM\ManyToOne(targetEntity="Claroline\CoreBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */

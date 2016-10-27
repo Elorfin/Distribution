@@ -1,0 +1,13 @@
+<ul id="tagList" class="tag-cloud list-unstyled list-inline">
+    <li
+        data-ng-repeat="tag in ctrl.tags">
+        <a
+            class="w{{ tag.weight }}"
+            href="{{ path('icap_blog_view_filter', {'blogId': blog.id, 'filter': tag.slug}) }}"
+            title="{{ tag.name }}">
+            {{ tag.name }}<span data-ng-if="ctrl.options.tag_cloud === 2"> ({{ tag.countPosts }})</span>
+        </a>
+    </li>
+
+    <li data-ng-if="ctrl.tags.length === 0">{{ 'no_tags'|trans:{}:'icap_blog' }}</li>
+</ul>

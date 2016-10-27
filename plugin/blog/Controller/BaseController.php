@@ -4,8 +4,8 @@ namespace Icap\BlogBundle\Controller;
 
 use Claroline\CoreBundle\Event\Log\LogResourceReadEvent;
 use Claroline\CoreBundle\Event\Log\LogResourceUpdateEvent;
-use Icap\BlogBundle\Entity\Blog;
 use Claroline\CoreBundle\Library\Resource\ResourceCollection;
+use Icap\BlogBundle\Entity\Blog;
 use Icap\BlogBundle\Entity\BlogOptions;
 use Icap\BlogBundle\Entity\Comment;
 use Icap\BlogBundle\Entity\Post;
@@ -42,7 +42,7 @@ class BaseController extends Controller
         $isGranted = true;
 
         if (false === is_array($permissions)) {
-            $permissions = array($permissions);
+            $permissions = [$permissions];
         }
 
         foreach ($permissions as $permission) {
@@ -64,25 +64,30 @@ class BaseController extends Controller
 
     public function orderPanelsAction(Blog $blog)
     {
-        $panelInfo = $this->get('icap_blog.manager.blog')->getPanelInfos();
-        $mask = $blog->getOptions()->getListWidgetBlog();
-        $orderPanelsTable = array();
-
-        for ($maskPosition = 0, $entreTableau = 0; $maskPosition < strlen($mask); $maskPosition += 2, $entreTableau++) {
-            $orderPanelsTable[] = array(
-                'nameTemplate' => $panelInfo[$mask{$maskPosition}],
-                'visibility' => (int) $mask{$maskPosition + 1},
-            );
-        }
-
         return $this->render(
             'IcapBlogBundle::aside.html.twig',
-            array(
-                'orderPanelInfos' => $orderPanelsTable,
+            [
+                'orderPanelInfos' => $this->orderPanels($blog),
                 'blog' => $blog,
                 'archives' => $this->getArchiveDatas($blog),
-            )
+            ]
         );
+    }
+
+    protected function orderPanels(Blog $blog)
+    {
+        $panelInfo = $this->get('icap_blog.manager.blog')->getPanelInfos();
+        $mask = $blog->getOptions()->getListWidgetBlog();
+        $orderPanelsTable = [];
+
+        for ($maskPosition = 0, $entreTableau = 0; $maskPosition < strlen($mask); $maskPosition += 2, $entreTableau++) {
+            $orderPanelsTable[] = [
+                'nameTemplate' => $panelInfo[$mask{$maskPosition}],
+                'visibility' => (int) $mask{$maskPosition + 1},
+            ];
+        }
+
+        return $orderPanelsTable;
     }
 
     /**
@@ -94,7 +99,7 @@ class BaseController extends Controller
     protected function isUserGranted($permission, Blog $blog)
     {
         $checkPermission = false;
-        if ($this->get('security.authorization_checker')->isGranted($permission, new ResourceCollection(array($blog->getResourceNode())))) {
+        if ($this->get('security.authorization_checker')->isGranted($permission, new ResourceCollection([$blog->getResourceNode()]))) {
             $checkPermission = true;
         }
 
@@ -109,7 +114,7 @@ class BaseController extends Controller
     protected function getArchiveDatas(Blog $blog)
     {
         $postDatas = $this->get('icap.blog.post_repository')->findArchiveDatasByBlog($blog);
-        $archiveDatas = array();
+        $archiveDatas = [];
 
         $translator = $this->get('translator');
 
@@ -119,12 +124,12 @@ class BaseController extends Controller
             $month = $publicationDate->format('m');
 
             if (!isset($archiveDatas[$year][$month])) {
-                $archiveDatas[$year][$month] = array(
+                $archiveDatas[$year][$month] = [
                     'year' => $year,
-                    'month' => $translator->trans('month.'.date('F', mktime(0, 0, 0, $month, 10)), array(), 'platform'),
+                    'month' => $translator->trans('month.'.date('F', mktime(0, 0, 0, $month, 10)), [], 'platform'),
                     'count' => 1,
                     'urlParameters' => $month.'-'.$year,
-                );
+                ];
             } else {
                 ++$archiveDatas[$year][$month]['count'];
             }

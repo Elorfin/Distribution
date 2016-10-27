@@ -1,0 +1,21 @@
+<div class="panel-heading">
+    <h3 class="panel-title">{{ 'archives'|trans:{}:'icap_blog' }}</h3>
+</div>
+<div class="panel-body">
+    <ul class="tree" data-jquery-tree>
+        <li
+            data-ng-repeat="(year, data) in ctrl.archives">
+            <span>{{ year }}</span>
+            <ul>
+                <li data-ng-repeat="month in data">
+                    <a href="{{ path('icap_blog_view_filter', {'blogId': blog.id, 'filter': data.urlParameters}) }}">
+                        {{ month.month }} ({{ month.count }})
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li data-ng-if="ctrl.archives.length === 0">
+            {{ 'no_archives'|trans:{}:'icap_blog' }}
+        </li>
+    </ul>
+</div>
