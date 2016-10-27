@@ -40,7 +40,7 @@
         "jdorn/sql-formatter": "~1.0",
         "jms/di-extra-bundle": "1.5.0",
         "jms/security-extra-bundle": "1.5.1",
-        "jms/serializer-bundle": "~0.13",
+        "jms/serializer-bundle": "1.1.0",
         "jms/twig-js-bundle": "1.0.0",
         "johngrogg/ics-parser": "dev-master",
         "json-quiz/json-quiz": "0.1.0",
